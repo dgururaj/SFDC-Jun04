@@ -52,7 +52,7 @@ public class SFDCTests {
 		driver.findElement(By.xpath("//button[@name='SaveEdit']")).click();
 		Thread.sleep(2000);
 		
-		System.out.println(driver.findElement(By.xpath("//div[@data-aura-class='forceToastMessage']")).getText());
+		System.out.println("Toast Message::"+driver.findElement(By.xpath("//div[@data-aura-class='forceToastMessage']")).getText());
 		
 		
 		// 
