@@ -17,12 +17,18 @@ public class SFDCTests {
 		WebDriver driver;
 		WebDriverManager.chromedriver().setup();
 		// System.setProperty("webdriver.chrome.driver", "./driver/chromedriver.exe");
-		driver = new ChromeDriver();
+		
+		// disable browser notifications
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--disable-notifications");
+		
+		
+		driver = new ChromeDriver(options);
 		driver.get("https://login.salesforce.com/");
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--disable-notifications");
+		
+		
 		driver.findElement(By.id("username")).sendKeys("makaia@testleaf.com");
 		driver.findElement(By.id("password")).sendKeys("BootcampSel@123");
 		driver.findElement(By.id("Login")).click();
@@ -52,7 +58,7 @@ public class SFDCTests {
 		driver.findElement(By.xpath("//button[@name='SaveEdit']")).click();
 		Thread.sleep(2000);
 		
-		System.out.println("Toast Message::"+driver.findElement(By.xpath("//div[@data-aura-class='forceToastMessage']")).getText());
+		System.out.println("Toast Message new::"+driver.findElement(By.xpath("//div[@data-aura-class='forceToastMessage']")).getText());
 		
 		
 		// 
