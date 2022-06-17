@@ -13,11 +13,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class SFDCTests {
+public class DashboardsTest {
 
 	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
 		WebDriver driver;
 		WebDriverManager.chromedriver().setup();
+		
 		// System.setProperty("webdriver.chrome.driver", "./driver/chromedriver.exe");
 		
 		// disable browser notifications
@@ -38,44 +40,47 @@ public class SFDCTests {
 		driver.findElement(By.xpath("//div[@class='slds-icon-waffle']")).click();
 		driver.findElement(By.xpath("//button[text()='View All']")).click();
 		Thread.sleep(5000);
-		driver.findElement(By.xpath("//input[@placeholder='Search apps or items...']")).sendKeys("Sales");
-		driver.findElement(
-				By.xpath("//p[text()='Manage your sales process with accounts, leads, opportunities, and more']"))
-				.click();
-		Thread.sleep(5000);
-
-		//driver.findElement(By.xpath("//a[@title='Accounts']/parent::*")).click();
-
-		WebElement element = driver.findElement(By.xpath("//a[@title='Accounts']"));
-		JavascriptExecutor executor = (JavascriptExecutor) driver;
-		executor.executeScript("arguments[0].click();", element);
-		Thread.sleep(5000);
-
-		
-		
-		driver.findElement(By.xpath("//div[@title='New']")).click();
-		Thread.sleep(5000);
-
-		driver.findElement(By.xpath("//input[@name='Name']")).sendKeys("Ipsum LYX");
-		driver.findElement(By.xpath("//button[@name='SaveEdit']")).click();
+		driver.findElement(By.xpath("//input[@placeholder='Search apps or items...']")).sendKeys("Dashboards");
 		Thread.sleep(2000);
+		driver.findElement(
+				By.xpath("//mark[text()='Dashboards']"))
+				.click();
 		
-		 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		    try {
-		       wait.until(ExpectedConditions.titleContains("BrowserStack"));
-		       JavascriptExecutor jse = (JavascriptExecutor)driver;
-		    }
-		    catch(Exception e) {
-		        e.printStackTrace();
-		    }
-		    
-		  //  WebDriverWait wait = new WebDriverWait(driver,30);
-		  //  wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'COMPOSE')]")));
+
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		WebElement New_Dash = driver.findElement(By.xpath("//div[text()='New Dashboard']"));
+		wait.until(ExpectedConditions.elementToBeClickable(New_Dash));
+		New_Dash.click();
+		Thread.sleep(30000);
+		WebElement frame = driver.findElement(By.xpath("//iframe[@title='dashboard']"));
+		driver.switchTo().frame(frame);
 		
-		System.out.println("Toast Message new::"+driver.findElement(By.xpath("//div[@data-aura-class='forceToastMessage']")).getText());
+		WebElement Name = driver.findElement(By.xpath("//input[@id='dashboardNameInput']"));
+		wait.until(ExpectedConditions.visibilityOf(Name));
+		Name.sendKeys("asdfghj");
+		Thread.sleep(10000);
+		
+		WebElement createbutton = driver.findElement(By.xpath("//button[text()='Create']"));
+		wait.until(ExpectedConditions.visibilityOf(createbutton));
+		createbutton.click();
+		Thread.sleep(10000);
+		
+		WebElement savebutton = driver.findElement(By.xpath("//button[text()='Done']"));
+		//div[@class='slds-button-group']
+		//button[text()='Done']
+		//button[text()='Save']
+		//savebutton.click();
+		System.out.println(savebutton.isDisplayed());
+		
+		JavascriptExecutor executor = (JavascriptExecutor) driver;
+		executor.executeScript("arguments[0].scrollIntoView();", savebutton);
+		executor.executeScript("arguments[0].click();", savebutton);
 		
 		
-		// 
+		
+		
+		
+		
 
 	}
 
